@@ -1,0 +1,110 @@
+
+.react__drag__rotate__rotater {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: transparent;
+  border-width: 4px;
+  border-style: solid;
+  position: absolute;
+
+  &--top-left {
+    border-top-color: #ccc;
+    border-left-color: #ccc;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    top: -14px;
+    left: -14px;
+  }
+  &--top-right {
+    border-top-color: #ccc;
+    border-right-color: #ccc;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    top: -14px;
+    right: -14px;
+  }
+  &--bottom-left {
+    border-bottom-color: #ccc;
+    border-left-color: #ccc;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    bottom: -14px;
+    left: -14px;
+  }
+  &--bottom-right {
+    border-bottom-color: #ccc;
+    border-right-color: #ccc;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    bottom: -14px;
+    right: -14px;
+  }
+
+  &--center {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ccc;
+
+    &-top-left {
+      top: -10px;
+      left: -10px;
+    }
+    &-top-center {
+      top: -10px;
+      left: 50%;
+      margin-left: -10px;
+    }
+    &-top-right {
+      top: -10px;
+      right: -10px;
+    }
+    &-right-top {
+      top: -10px;
+      right: -10px;
+    }
+    &-right-center {
+      top: 50%;
+      margin-top: -10px;
+      right: -10px;
+    }
+    &-right-bottom {
+      bottom: -10px;
+      right: -10px;
+    }
+    &-center-center {
+      top: 50%;
+      left: 50%;
+      margin-top: -10px;
+      margin-left: -10px;
+    }
+    &-bottom-left {
+      bottom: -10px;
+      left: -10px;
+    }
+    &-bottom-center {
+      bottom: -10px;
+      left: 50%;
+      margin-left: -10px;
+    }
+    &-bottom-right {
+      bottom: -10px;
+      right: -10px;
+    }
+    &-left-top {
+      top: -10px;
+      left: -10px;
+    }
+    &-left-center {
+      top: 50%;
+      margin-top: -10px;
+      left: -10px;
+    }
+    &-left-bottom {
+      bottom: -10px;
+      left: -10px;
+    }
+  }
+}
