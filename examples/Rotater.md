@@ -11,17 +11,20 @@ import Rotater from '../src';
 
 class App extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = { deg: 0 };
+  }
+
   render() {
-    return <Rotater style={{
-        width: 300,
-        height: 300,
-      }}>
-      <div style={{
-        width: 300,
-        height: 300,
-        background: 'red',
-      }} />
-    </Rotater>
+    return <div style={{
+      width: 300,
+      height: 300,
+      background: 'red',
+      transform: `rotate(${this.state.deg}deg)`,
+    }}>
+      <Rotater onRotate={({deg}) => this.setState({ deg })} />
+    </div>
   }
 
 }

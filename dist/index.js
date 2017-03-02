@@ -47,16 +47,18 @@ var Rotater = function (_PureComponent) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _originRef$getBoundin = this.originRef.getBoundingClientRect(),
+          width = _originRef$getBoundin.width,
+          height = _originRef$getBoundin.height,
           left = _originRef$getBoundin.left,
           top = _originRef$getBoundin.top;
 
-      this.origin_x = left + 10;
-      this.origin_y = top + 10;
+      this.origin_x = left + width / 2 + 10;
+      this.origin_y = top + height / 2 + 10;
       this.lastRad = 0;
     }
   }, {
-    key: 'onDragStart',
-    value: function onDragStart(e) {
+    key: 'onRotateStart',
+    value: function onRotateStart(e) {
       var _this2 = this;
 
       this.start_x = e.pageX;
@@ -65,18 +67,18 @@ var Rotater = function (_PureComponent) {
       e.stopPropagation();
       this.dragging = true;
       this.mouseMoveEvent = window.addEventListener('mousemove', function (e) {
-        return _this2.onDrag(e);
+        return _this2.onRotate(e);
       });
       this.mouseUpEvent = window.addEventListener('mouseup', function (e) {
-        return _this2.onDragStop(e);
+        return _this2.onRotateStop(e);
       });
     }
   }, {
-    key: 'onDrag',
-    value: function onDrag(e) {
+    key: 'onRotate',
+    value: function onRotate(e) {
       var _props = this.props,
-          onDragStart = _props.onDragStart,
-          onDrag = _props.onDrag;
+          onRotateStart = _props.onRotateStart,
+          onRotate = _props.onRotate;
 
       e.preventDefault();
       e.stopPropagation();
@@ -84,7 +86,7 @@ var Rotater = function (_PureComponent) {
         var moving_x = e.pageX;
         var moving_y = e.pageY;
         if (moving_x !== this.start_x && moving_y !== this.start_y) {
-          typeof onDragStart === 'function' && onDragStart();
+          typeof onRotateStart === 'function' && onRotateStart();
           var moving_rad = Math.atan2(moving_y - this.origin_y, moving_x - this.origin_x);
           moving_rad -= Math.atan2(this.start_y - this.origin_y, this.start_x - this.origin_x);
           moving_rad += this.lastRad;
@@ -93,7 +95,7 @@ var Rotater = function (_PureComponent) {
             rad: moving_rad,
             deg: deg
           });
-          typeof onDrag === 'function' && onDrag({
+          typeof onRotate === 'function' && onRotate({
             rad: moving_rad,
             deg: deg
           });
@@ -101,13 +103,13 @@ var Rotater = function (_PureComponent) {
       }
     }
   }, {
-    key: 'onDragStop',
-    value: function onDragStop(e) {
+    key: 'onRotateStop',
+    value: function onRotateStop(e) {
       e.preventDefault();
       e.stopPropagation();
       this.dragging = false;
       this.lastRad = this.state.rad;
-      typeof this.props.onDragStop === 'function' && this.props.onDragStop(this.state);
+      typeof this.props.onRotateStop === 'function' && this.props.onRotateStop(this.state);
       window.removeEventListener('mousemove', this.mouseMoveEvent, true);
       window.removeEventListener('mouseup', this.mouseUpEvent, true);
     }
@@ -116,35 +118,21 @@ var Rotater = function (_PureComponent) {
     value: function render() {
       var _this3 = this;
 
-      var _props2 = this.props,
-          origin = _props2.origin,
-          className = _props2.className,
-          style = _props2.style,
-          children = _props2.children;
+      var origin = this.props.origin;
 
       return _react2.default.createElement(
         'div',
-        { className: className,
-          style: _deepmerge2.default.all([defaultStyle, style || {}, {
-            transformOrigin: origin.split('-').join(' '),
-            transform: 'rotate(' + this.state.deg + 'deg)'
-          }]),
-          ref: function ref(r) {
+        { className: 'react__drag__rotate__rotater-wrap', ref: function ref(r) {
             return _this3.rotater = r;
           } },
-        _react2.default.createElement(
-          'div',
-          { className: 'react__drag__rotate__rotater react__drag__rotate__rotater--top-right',
-            onMouseDown: function onMouseDown(e) {
-              return _this3.onDragStart(e);
-            } },
-          'top-right'
-        ),
+        _react2.default.createElement('div', { className: 'react__drag__rotate__rotater react__drag__rotate__rotater--top-right',
+          onMouseDown: function onMouseDown(e) {
+            return _this3.onRotateStart(e);
+          } }),
         _react2.default.createElement('div', { className: 'react__drag__rotate__rotater--center react__drag__rotate__rotater--center-' + origin,
           ref: function ref(r) {
             return _this3.originRef = r;
-          } }),
-        children
+          } })
       );
     }
   }]);
@@ -155,16 +143,16 @@ var Rotater = function (_PureComponent) {
 Rotater.propTypes = {
   initialDeg: _react.PropTypes.number,
   origin: _react.PropTypes.oneOf(['top-left', 'top-center', 'top-right', 'right-top', 'right-center', 'right-bottom', 'center-center', 'bottom-left', 'bottom-center', 'bottom-right', 'left-top', 'left-center', 'left-bottom']),
-  onDragStart: _react.PropTypes.func,
-  onDrag: _react.PropTypes.func,
-  onDragStop: _react.PropTypes.func
+  onRotateStart: _react.PropTypes.func,
+  onRotate: _react.PropTypes.func,
+  onRotateStop: _react.PropTypes.func
 };
 Rotater.defaultProps = {
   initialDeg: 0,
   origin: 'center-center',
-  onDragStart: function onDragStart() {},
-  onDrag: function onDrag() {},
-  onDragStop: function onDragStop() {}
+  onRotateStart: function onRotateStart() {},
+  onRotate: function onRotate() {},
+  onRotateStop: function onRotateStop() {}
 };
 exports.default = Rotater;
 module.exports = exports['default'];
