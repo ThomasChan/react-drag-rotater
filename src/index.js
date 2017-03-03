@@ -36,6 +36,8 @@ export default class Rotater extends PureComponent {
       rad: 0,
       deg: props.initialDeg,
     };
+    this.onRotate = this.onRotate.bind(this);
+    this.onRotateStop = this.onRotateStop.bind(this);
   }
 
   componentDidMount() {
@@ -51,8 +53,8 @@ export default class Rotater extends PureComponent {
     e.preventDefault();
     e.stopPropagation();
     this.dragging = true;
-    this.mouseMoveEvent = window.addEventListener('mousemove', e => this.onRotate(e));
-    this.mouseUpEvent = window.addEventListener('mouseup', e => this.onRotateStop(e));
+    window.addEventListener('mousemove', this.onRotate, false);
+    window.addEventListener('mouseup', this.onRotateStop, false);
   }
 
   onRotate(e) {
@@ -85,13 +87,11 @@ export default class Rotater extends PureComponent {
   }
 
   onRotateStop(e) {
-    e.preventDefault();
-    e.stopPropagation();
     this.dragging = false;
     this.lastRad = this.state.rad;
+    window.removeEventListener('mousemove', this.onRotate, false);
+    window.removeEventListener('mouseup', this.onRotateStop, false);
     typeof this.props.onRotateStop === 'function' && this.props.onRotateStop(this.state);
-    window.removeEventListener('mousemove', this.mouseMoveEvent, true);
-    window.removeEventListener('mouseup', this.mouseUpEvent, true);
   }
 
   render() {

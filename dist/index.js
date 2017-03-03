@@ -40,6 +40,8 @@ var Rotater = function (_PureComponent) {
       rad: 0,
       deg: props.initialDeg
     };
+    _this.onRotate = _this.onRotate.bind(_this);
+    _this.onRotateStop = _this.onRotateStop.bind(_this);
     return _this;
   }
 
@@ -59,19 +61,13 @@ var Rotater = function (_PureComponent) {
   }, {
     key: 'onRotateStart',
     value: function onRotateStart(e) {
-      var _this2 = this;
-
       this.start_x = e.pageX;
       this.start_y = e.pageY;
       e.preventDefault();
       e.stopPropagation();
       this.dragging = true;
-      this.mouseMoveEvent = window.addEventListener('mousemove', function (e) {
-        return _this2.onRotate(e);
-      });
-      this.mouseUpEvent = window.addEventListener('mouseup', function (e) {
-        return _this2.onRotateStop(e);
-      });
+      window.addEventListener('mousemove', this.onRotate, false);
+      window.addEventListener('mouseup', this.onRotateStop, false);
     }
   }, {
     key: 'onRotate',
@@ -105,33 +101,31 @@ var Rotater = function (_PureComponent) {
   }, {
     key: 'onRotateStop',
     value: function onRotateStop(e) {
-      e.preventDefault();
-      e.stopPropagation();
       this.dragging = false;
       this.lastRad = this.state.rad;
+      window.removeEventListener('mousemove', this.onRotate, false);
+      window.removeEventListener('mouseup', this.onRotateStop, false);
       typeof this.props.onRotateStop === 'function' && this.props.onRotateStop(this.state);
-      window.removeEventListener('mousemove', this.mouseMoveEvent, true);
-      window.removeEventListener('mouseup', this.mouseUpEvent, true);
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var origin = this.props.origin;
 
       return _react2.default.createElement(
         'div',
         { className: 'react__drag__rotate__rotater-wrap', ref: function ref(r) {
-            return _this3.rotater = r;
+            return _this2.rotater = r;
           } },
         _react2.default.createElement('div', { className: 'react__drag__rotate__rotater react__drag__rotate__rotater--top-right',
           onMouseDown: function onMouseDown(e) {
-            return _this3.onRotateStart(e);
+            return _this2.onRotateStart(e);
           } }),
         _react2.default.createElement('div', { className: 'react__drag__rotate__rotater--center react__drag__rotate__rotater--center-' + origin,
           ref: function ref(r) {
-            return _this3.originRef = r;
+            return _this2.originRef = r;
           } })
       );
     }
