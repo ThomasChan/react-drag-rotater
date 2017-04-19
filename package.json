@@ -1,16 +1,13 @@
 {
   "name": "react-drag-rotater",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "React Drag rotater",
   "main": "./dist/index.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "compile": "yarn run clean && babel src -d dist --copy-files",
-    "build": "atool-build",
-    "lint": "eslint --cache --ignore-path .gitignore --format=node_modules/eslint-formatter-pretty . *.js",
+    "compile": "npm run clean && babel src -d dist --copy-files",
     "doc": "NODE_ENV=development && atool-doc",
     "doc-build": "atool-doc --build",
-    "gh-pages": "atool-doc --build && gh-pages -d __site",
     "pub": "npm run compile && npm run build && npm publish"
   },
   "repository": {
