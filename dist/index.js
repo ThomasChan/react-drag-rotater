@@ -48,15 +48,19 @@ var Rotater = function (_PureComponent) {
   _createClass(Rotater, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _originRef$getBoundin = this.originRef.getBoundingClientRect(),
-          width = _originRef$getBoundin.width,
-          height = _originRef$getBoundin.height,
-          left = _originRef$getBoundin.left,
-          top = _originRef$getBoundin.top;
+      var _this2 = this;
 
-      this.origin_x = left + width / 2 + 10;
-      this.origin_y = top + height / 2 + 10;
-      this.lastRad = 0;
+      setTimeout(function () {
+        var _originRef$getBoundin = _this2.originRef.getBoundingClientRect(),
+            width = _originRef$getBoundin.width,
+            height = _originRef$getBoundin.height,
+            left = _originRef$getBoundin.left,
+            top = _originRef$getBoundin.top;
+
+        _this2.origin_x = left + width / 2;
+        _this2.origin_y = top + height / 2;
+        _this2.lastRad = 0;
+      });
     }
   }, {
     key: 'onRotateStart',
@@ -110,22 +114,22 @@ var Rotater = function (_PureComponent) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var origin = this.props.origin;
 
       return _react2.default.createElement(
         'div',
         { className: 'react__drag__rotate__rotater-wrap', ref: function ref(r) {
-            return _this2.rotater = r;
+            return _this3.rotater = r;
           } },
         _react2.default.createElement('div', { className: 'react__drag__rotate__rotater react__drag__rotate__rotater--top-right',
           onMouseDown: function onMouseDown(e) {
-            return _this2.onRotateStart(e);
+            return _this3.onRotateStart(e);
           } }),
         _react2.default.createElement('div', { className: 'react__drag__rotate__rotater--center react__drag__rotate__rotater--center-' + origin,
           ref: function ref(r) {
-            return _this2.originRef = r;
+            return _this3.originRef = r;
           } })
       );
     }

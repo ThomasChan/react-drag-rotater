@@ -920,21 +920,38 @@
 <span class="hljs-keyword">import</span> { render } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 <span class="hljs-keyword">import</span> Rotater <span class="hljs-keyword">from</span> <span class="hljs-string">'../src'</span>;
 
+<span class="hljs-keyword">const</span> position = [<span class="hljs-string">'top-left'</span>, <span class="hljs-string">'top-center'</span>, <span class="hljs-string">'top-right'</span>,
+  <span class="hljs-string">'right-top'</span>, <span class="hljs-string">'right-center'</span>, <span class="hljs-string">'right-bottom'</span>,
+  <span class="hljs-string">'center-center'</span>,
+  <span class="hljs-string">'bottom-left'</span>, <span class="hljs-string">'bottom-center'</span>, <span class="hljs-string">'bottom-right'</span>,
+  <span class="hljs-string">'left-top'</span>, <span class="hljs-string">'left-center'</span>, <span class="hljs-string">'left-bottom'</span>,]
+
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
 
   <span class="hljs-keyword">constructor</span>(props) {
     <span class="hljs-keyword">super</span>(props);
-    <span class="hljs-keyword">this</span>.state = { deg: <span class="hljs-number">0</span> };
+    <span class="hljs-keyword">const</span> state = {};
+    position.map(p =&gt; state[p] = <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">this</span>.state = state;
   }
 
   render() {
-    <span class="hljs-keyword">return</span> &lt;div style={{
-      width: 300,
-      height: 300,
-      background: 'red',
-      transform: `rotate(${this.state.deg}deg)`,
-    }}&gt;
-      &lt;Rotater onRotate={({deg}) =&gt; this.setState({ deg })} /&gt;
+    <span class="hljs-keyword">return</span> &lt;div&gt;
+      {position.map((p, i) =&gt;
+        &lt;div key={i}
+          style={{
+            width: 100,
+            height: 100,
+            border: '1px solid red',
+            margin: 30,
+            transform: `rotate(${this.state[p]}deg)`,
+            transformOrigin: p.replace('-', ' '),
+          }}&gt;
+          &lt;Rotater onRotate={({deg}) =&gt; this.setState({ [p]: deg })}
+            origin={p} /&gt;
+          {p}
+        &lt;/div&gt;
+      )}
     &lt;/div&gt;
   }
 

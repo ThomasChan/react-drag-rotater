@@ -20,7 +20,7 @@ export default class Rotater extends PureComponent {
     onRotateStart: PropTypes.func,
     onRotate: PropTypes.func,
     onRotateStop: PropTypes.func,
-  }
+  };
 
   static defaultProps = {
     initialDeg: 0,
@@ -28,7 +28,7 @@ export default class Rotater extends PureComponent {
     onRotateStart: () => {},
     onRotate: () => {},
     onRotateStop: () => {},
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -41,10 +41,12 @@ export default class Rotater extends PureComponent {
   }
 
   componentDidMount() {
-    const { width, height, left, top } = this.originRef.getBoundingClientRect();
-    this.origin_x = left + (width / 2) + 10;
-    this.origin_y = top + (height / 2) + 10;
-    this.lastRad = 0;
+    setTimeout(() => {
+      const { width, height, left, top } = this.originRef.getBoundingClientRect();
+      this.origin_x = left + (width / 2);
+      this.origin_y = top + (height / 2);
+      this.lastRad = 0;
+    });
   }
 
   onRotateStart(e) {

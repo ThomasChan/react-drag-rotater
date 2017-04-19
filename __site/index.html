@@ -6,6 +6,7 @@
     <title>
       react-drag-rotater@0.1.0
     </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <link href="//os.alipayobjects.com/rmsportal/iUKcdtKUFtONTig.css" rel="stylesheet"/>
     <style type="text/css">
       @font-face {
@@ -735,21 +736,42 @@ $ npm run doc</code></pre>
   </div><h3 id="include-the-component">Include the Component</h3>
 <div class="highlight">
     <pre><code language=js><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> { render } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 <span class="hljs-keyword">import</span> Rotater <span class="hljs-keyword">from</span> <span class="hljs-string">'react-drag-rotater'</span>;
+
+<span class="hljs-keyword">const</span> position = [<span class="hljs-string">'top-left'</span>, <span class="hljs-string">'top-center'</span>, <span class="hljs-string">'top-right'</span>,
+  <span class="hljs-string">'right-top'</span>, <span class="hljs-string">'right-center'</span>, <span class="hljs-string">'right-bottom'</span>,
+  <span class="hljs-string">'center-center'</span>,
+  <span class="hljs-string">'bottom-left'</span>, <span class="hljs-string">'bottom-center'</span>, <span class="hljs-string">'bottom-right'</span>,
+  <span class="hljs-string">'left-top'</span>, <span class="hljs-string">'left-center'</span>, <span class="hljs-string">'left-bottom'</span>,]
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
 
+  <span class="hljs-keyword">constructor</span>(props) {
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">const</span> state = {};
+    position.map(p =&gt; state[p] = <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">this</span>.state = state;
+  }
+
   render() {
-    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Rotater</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">width:</span> <span class="hljs-attr">300</span>,
-        <span class="hljs-attr">height:</span> <span class="hljs-attr">300</span>,
-      }}&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">width:</span> <span class="hljs-attr">300</span>,
-        <span class="hljs-attr">height:</span> <span class="hljs-attr">300</span>,
-        <span class="hljs-attr">background:</span> '<span class="hljs-attr">red</span>',
-      }} /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">Rotater</span>&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      {position.map((p, i) =&gt;
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{i}</span>
+          <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
+            <span class="hljs-attr">width:</span> <span class="hljs-attr">100</span>,
+            <span class="hljs-attr">height:</span> <span class="hljs-attr">100</span>,
+            <span class="hljs-attr">border:</span> '<span class="hljs-attr">1px</span> <span class="hljs-attr">solid</span> <span class="hljs-attr">red</span>',
+            <span class="hljs-attr">margin:</span> <span class="hljs-attr">30</span>,
+            <span class="hljs-attr">transform:</span> `<span class="hljs-attr">rotate</span>(${<span class="hljs-attr">this.state</span>[<span class="hljs-attr">p</span>]}<span class="hljs-attr">deg</span>)`,
+            <span class="hljs-attr">transformOrigin:</span> <span class="hljs-attr">p.replace</span>('<span class="hljs-attr">-</span>', ' '),
+          }}&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Rotater</span> <span class="hljs-attr">onRotate</span>=<span class="hljs-string">{({deg})</span> =&gt;</span> this.setState({ [p]: deg })}
+            origin={p} /&gt;
+          {p}
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      )}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   }
 
 }</span></code></pre>
