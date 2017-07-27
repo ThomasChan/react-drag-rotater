@@ -1,3 +1,5 @@
+[![NPM](https://nodei.co/npm/react-drag-rotater.png)](https://nodei.co/npm/react-drag-rotater/)
+
 # React-drag-rotater
 
 ## Example
