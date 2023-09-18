@@ -4,7 +4,7 @@
 
 ## Example
 
-- [Online example](http://chenjunhao.cn/react-drag-rotater)
+- [Online example](http://chenjunhao.cn/projects/react-drag-rotater)
 - local example
   ```sh
   $ git clone git@github.com:thomaschan/react-drag-rotater.git
